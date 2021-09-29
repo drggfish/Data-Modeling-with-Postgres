@@ -48,16 +48,16 @@ CREATE TABLE IF NOT EXISTS artists (
         longitude float);
 """)
 
-# time_table_create = ("""
-# CREATE TABLE IF NOT EXISTS time (
-#         start_time timestamp, 
-#         hour int, 
-#         day int, 
-#         week int, 
-#         month int, 
-#         year int, 
-#         weekday varchar);
-# """)
+time_table_create = ("""
+CREATE TABLE IF NOT EXISTS time (
+        start_time timestamp PRIMARY KEY, 
+        hour int, 
+        day int, 
+        week int, 
+        month int, 
+        year int, 
+        weekday varchar);
+""")
 
 # INSERT RECORDS
 
@@ -87,12 +87,12 @@ INSERT INTO artists
 """)
 
 
-# time_table_insert = ("""
-# INSERT INTO time
-#     (start_time, hour, day, week, month, year, weekday)
-#     VALUES (%s, %s, %s, %s, %s, %s, %s)
-#     ON CONFLICT (start_time) DO NOTHING;
-# """)
+time_table_insert = ("""
+INSERT INTO time
+    (start_time, hour, day, week, month, year, weekday)
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT (start_time) DO NOTHING;
+""")
 
 # # FIND SONGS
 
@@ -109,5 +109,5 @@ INSERT INTO artists
 # create_table_queries = [songplay_table_create, user_table_create, song_table_create, artist_table_create, time_table_create]
 # drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
 
-create_table_queries = [song_table_create, artist_table_create]
-drop_table_queries = [song_table_drop]
+create_table_queries = [song_table_create, artist_table_create,time_table_create]
+drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
