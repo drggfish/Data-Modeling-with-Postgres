@@ -5,6 +5,13 @@ import pandas as pd
 from sql_queries import *
 
 def process_song_file(cur, filepath):
+    """" Function used to process song file data
+         Arguments:
+           cur: the connection curser to the sparkifydb
+           filepath: the path to the song file data
+        Returns:
+            None
+    """
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -19,6 +26,13 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """" Function used to process log file data
+         Arguments:
+           cur: the connection curser to the sparkifydb
+           filepath: the path to the log file data
+        Returns:
+            None
+    """
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -59,8 +73,7 @@ def process_log_file(cur, filepath):
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = [index, 
-                     pd.to_datetime(row["ts"], 
+        songplay_data = [pd.to_datetime(row["ts"], 
                      unit='ms'), 
                      row.userId, 
                      row.level, 
@@ -74,6 +87,16 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """" Function used to generate a list of files from either the
+         the log data or she song data directories
+         Arguments:
+           cur: the cursor object to the sparkifydb
+           conn: the connection object to the sparkifydb used to 
+           filepath: the path to the file data directory
+           func: the function to call that has been passed in from Main
+        Returns:
+            None
+    """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -93,6 +116,14 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    """" Main function used to run work flow.  Initially it sets up the connection object to the
+         sparkifydb. Subsequently it makes two calls to the process_data function to process the
+         song and log data files.
+         Arguments:
+           None
+        Returns:
+           None
+    """
     
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()

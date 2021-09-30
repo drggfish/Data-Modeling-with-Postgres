@@ -10,20 +10,20 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 
 songplay_table_create = ("""
 CREATE TABLE IF NOT EXISTS songplays (
-        songplay_id varchar PRIMARY KEY, 
-        start_time date REFERENCES time(start_time), 
-        user_id varchar NOT NULL REFERENCES users(user_id), 
+        songplay_id SERIAL PRIMARY KEY, 
+        start_time TIMESTAMP REFERENCES time(start_time), 
+        user_id INT NOT NULL REFERENCES users(user_id), 
         level varchar, 
         song_id varchar REFERENCES songs(song_id), 
         artist_id varchar REFERENCES artists(artist_id), 
-        session_id varchar, 
+        session_id INT, 
         location varchar, 
         user_agent varchar);
 """)
 
 user_table_create = ("""
 CREATE TABLE IF NOT EXISTS users (
-        user_id varchar PRIMARY KEY, 
+        user_id INT PRIMARY KEY, 
         first_name varchar, 
         last_name varchar, 
         gender varchar, 
@@ -32,17 +32,17 @@ CREATE TABLE IF NOT EXISTS users (
 
 song_table_create = ("""
 CREATE TABLE IF NOT EXISTS songs (
-        song_id varchar Primary Key, 
-        title text, 
+        song_id varchar PRIMARY KEY, 
+        title varchar, 
         artist_id varchar, 
-        year int, 
+        year INT, 
         duration float);
 """)
 
 artist_table_create = ("""
 CREATE TABLE IF NOT EXISTS artists (
-        artist_id varchar Primary Key, 
-        name text, 
+        artist_id varchar PRIMARY KEY, 
+        name varchar, 
         location varchar, 
         latitude float, 
         longitude float);
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS artists (
 
 time_table_create = ("""
 CREATE TABLE IF NOT EXISTS time (
-        start_time date PRIMARY KEY, 
+        start_time TIMESTAMP PRIMARY KEY, 
         hour int, 
         day int, 
         week int, 
@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS time (
 # INSERT RECORDS
 
 songplay_table_insert = ("""
-INSERT INTO songplays (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent) 
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-    ON CONFLICT (songplay_id) DO NOTHING;
+INSERT INTO songplays (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT DO NOTHING;
 """)
 
 user_table_insert = ("""
