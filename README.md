@@ -43,3 +43,104 @@ log_data/2018/11/2018-11-13-events.json
 
 # Schema for Song Play Analysis
 Using the song and log datasets, you'll need to create a star schema optimized for queries on song play analysis. This includes the following tables.
+
+### Fact tables
+
+#### Songplays
+
+Records in log data associated with song plays i.e. records with `page` set to
+`NextSong`.
+
+|   Column    |            Type             | Nullable |
+| ----------- | --------------------------- | -------- |
+| songplay_id | character varying           | not null |
+| start_time  | date                        | not null |
+| user_id     | character varying           | not null |
+| level       | character varying           | not null |
+| song_id     | character varying           | not null |
+| artist_id   | character varying           | not null |
+| session_id  | integer                     | not null |
+| location    | character varying           | not null |
+| user_agent  | character varying           | not null |
+
+Primary key: songplay_id
+
+### Dimension tables
+
+#### Users
+
+Users in the app.
+
+|   Column   |       Type        | Nullable |
+| ---------- | ----------------- | -------- |
+| user_id    | character varying | not null |
+| first_name | character varying | not null |
+| last_name  | character varying | not null |
+| gender     | character varying | not null |
+| level      | character varying | not null |
+
+Primary key: user_id
+
+#### Songs
+
+Songs in music database.
+
+|  Column   |         Type          | Nullable |
+| --------- | --------------------- | -------- |
+| song_id   | character varying     | not null |
+| title     | text                  | not null |
+| artist_id | character varying     | not null |
+| year      | integer               | not null |
+| duration  | double precision      | not null |
+
+Primary key: song_id
+
+#### Artists
+
+Artists in music database.
+
+|  Column   |         Type          | Nullable |
+| --------- | --------------------- | -------- |
+| artist_id | character varying     | not null |
+| name      | text                  | not null |
+| location  | character varying     | not null |
+| latitude  | double precision      |          |
+| longitude | double precision      |          |
+
+Primary key: artist_id
+
+#### Time
+
+Timestamps of records in songplays broken down into specific units.
+
+|   Column   |            Type             | Nullable |
+| ---------- | --------------------------- | -------- |
+| start_time | date                        | not null |
+| hour       | integer                     | not null |
+| day        | integer                     | not null |
+| week       | integer                     | not null |
+| month      | integer                     | not null |
+| year       | integer                     | not null |
+| weekday    | character varying           | not null |
+
+## Database
+
+The database can be installed locally or ran using Docker, which is the
+preferred method. I have included a **docker-compose.yml** file that when ran using "docker-compose up -d"
+will start a docker container running a PostgreSQL database and a container running pgAdmin4 that can
+be used to interact with the databases running in PostgreSQL.
+
+## Project structure
+
+Files used on the project:
+1. **data** data folder with separate JSON and log files that need to processed.
+2. **sql_queries.py** contains all sql queries, and is used by `create_tables.py` script.
+3. **create_tables.py** drops and creates tables. This resets all tables before each time ETL scripts are being run.
+4. **test.ipynb** displays the first few rows of each table.
+5. **etl.ipynb** reads and processes a single file from song_data and log_data and loads the data into predefined tables. 
+6. **etl.py** actual ETL script that reads and processes files from song_data and log_data and loads them into corresponding tables.
+
+## Running the project
+
+1. Run the **create_tables.py** script.  This script drops and creates tables. This resets all tables before each time ETL scripts are being run.
+2. Run the **etl.py** script. This script that reads and processes files from song_data and log_data and loads them into corresponding tables.
