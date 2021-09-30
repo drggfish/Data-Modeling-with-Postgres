@@ -53,9 +53,9 @@ Records in log data associated with song plays i.e. records with `page` set to
 
 |   Column    |            Type             |
 | ----------- | --------------------------- |
-| songplay_id | character varying           |
-| start_time  | date                        |
-| user_id     | character varying           |
+| songplay_id | serial                      |
+| start_time  | TIMESTAMP                   |
+| user_id     | integer                     |
 | level       | character varying           |
 | song_id     | character varying           |
 | artist_id   | character varying           |
@@ -73,7 +73,7 @@ Users in the app.
 
 |   Column   |       Type        |
 | ---------- | ----------------- |
-| user_id    | character varying |
+| user_id    | integer           |
 | first_name | character varying |
 | last_name  | character varying |
 | gender     | character varying |
@@ -88,7 +88,7 @@ Songs in music database.
 |  Column   |         Type          |
 | --------- | --------------------- |
 | song_id   | character varying     |
-| title     | text                  |
+| title     | character varying     |
 | artist_id | character varying     |
 | year      | integer               |
 | duration  | double precision      |
@@ -102,7 +102,7 @@ Artists in music database.
 |  Column   |         Type          |
 | --------- | --------------------- |
 | artist_id | character varying     |
-| name      | text                  |
+| name      | character varying     |
 | location  | character varying     |
 | latitude  | double precision      |
 | longitude | double precision      |
