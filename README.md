@@ -54,7 +54,7 @@ Records in log data associated with song plays i.e. records with `page` set to
 |   Column    |            Type             |
 | ----------- | --------------------------- |
 | songplay_id | serial                      |
-| start_time  | TIMESTAMP                   |
+| start_time  | timestamp                   |
 | user_id     | integer                     |
 | level       | character varying           |
 | song_id     | character varying           |
@@ -115,7 +115,7 @@ Timestamps of records in songplays broken down into specific units.
 
 |   Column   |            Type             |
 | ---------- | --------------------------- |
-| start_time | date                        |
+| start_time | timestamp                   |
 | hour       | integer                     |
 | day        | integer                     |
 | week       | integer                     |
