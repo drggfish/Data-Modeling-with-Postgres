@@ -133,7 +133,7 @@ be used to interact with the databases running in PostgreSQL.
 ## Project structure
 
 Files used on the project:
-1. **data** data folder with separate JSON and log files that need to processed.
+1. **data** data folder with separate song files and log files in JSON format that will be processed by the subsequent scripts.
 2. **sql_queries.py** contains all sql queries. Imported by the `create_tables.py` script.
 3. **create_tables.py** drops and creates various tables for the **sparkifydb**. It is used to reset all tables prior to running the ETL script.
 4. **test.ipynb** IPython notebook used to display the first few rows of each table.
